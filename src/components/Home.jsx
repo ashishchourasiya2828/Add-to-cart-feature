@@ -3,14 +3,13 @@ import Button from './Button';
 
 const Home = ({products,cartHandler}) => {
     // console.log(products);
-    const [isExpanded, setisExpanded] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false);
     const maxCharacters = 100;
 
 
-  const toggleDescription = () => {
-    setisExpanded(!isExpanded);
-  };
-
+    const toggleReadMore = () => {
+      setIsExpanded(!isExpanded);
+    };
   return (
     <div className='bg-white w-3/4 h-full p-3 rounded-lg' >
         <div className='flex justify-between w-full' >
@@ -28,8 +27,16 @@ const Home = ({products,cartHandler}) => {
                     <h1 className='text-xl font-semibold mb-3 mt-4 h-12 leading-none tracking-tight' >{elem.title}</h1>
                     {console.log(elem.description.substring(0, maxCharacters))}
 
-                    <p className='text-sm ' >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius corrupti inventore.</p>
-                        
+                    <div>
+      <p>
+        {isExpanded
+          ? elem.description
+          : `${elem.description.substring(0, 100)}...`} {/* Show truncated version */}
+      </p>
+      <button className='text-blue-600' onClick={toggleReadMore}>
+        {isExpanded ? "Read Less" : "Read More"} {/* Toggle button text */}
+      </button>
+    </div>                        
                     <h1 className='font-bold text-2xl mb-2' >${elem.price}</h1>
                     <button onClick={()=>{cartHandler(idx)}} className='px-4 py-2 bg-blue-600 rounded-md text-white' >Add to cart</button>
                 </div>
